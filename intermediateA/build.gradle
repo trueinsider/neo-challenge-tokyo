@@ -1,0 +1,16 @@
+apply plugin: "java"
+apply plugin: "application"
+
+repositories {
+    mavenCentral()
+}
+
+mainClassName = "Import"
+
+dependencies {
+    compile "net.openhft:chronicle-map:3.15.1"
+    compile "net.openhft:chronicle-bytes:1.16.23"
+    compile "net.openhft:chronicle-values:1.16.0"
+    compile "org.apache.commons:commons-lang3:3.8"
+    compile "commons-codec:commons-codec:1.11"
+}
