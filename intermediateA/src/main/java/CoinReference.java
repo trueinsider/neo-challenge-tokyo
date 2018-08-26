@@ -2,10 +2,10 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class CoinReference {
-    public final byte[] hash;
-    public final short index;
+    private final byte[] hash;
+    private final short index;
 
-    public CoinReference(byte[] hash, short index) {
+    CoinReference(byte[] hash, short index) {
         this.hash = hash;
         this.index = index;
     }
