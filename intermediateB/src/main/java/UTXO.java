@@ -23,7 +23,7 @@ public class UTXO {
             List<String> lines = Files.readAllLines(Paths.get("utxo.csv"));
             for (String line : lines) {
                 String[] split = line.split(",");
-                String transactionId = split[0].trim();
+                String transactionId = split[0].trim().substring(2);
                 short index = Short.valueOf(split[1].trim());
 
                 byte[] transactionHash = Hex.decodeHex(transactionId.toCharArray());
@@ -31,7 +31,7 @@ public class UTXO {
 
                 CoinReference coinReference = new CoinReference(transactionHash, index);
 
-                writer.write(utxo.get(coinReference).getValue() ? "Spent\n" : "Unspent\n");
+                writer.write(!utxo.containsKey(coinReference) ? "Spent\n" : "Unspent\n");
             }
         }
 

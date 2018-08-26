@@ -32,7 +32,7 @@ public class Import {
                 .constantKeySizeBySample(new CoinReference(new byte[32], (short) 0))
                 .constantValueSizeBySample(spent)
                 .keyMarshaller(CoinReferenceMarshaller.INSTANCE)
-                .entries(20_000_000)
+                .entries(3_405_916)
                 .createPersistedTo(new File("utxo.db"));
 
         long count = chainData.readUnsignedInt();
@@ -141,7 +141,6 @@ public class Import {
                 chainData.readPosition(outputsPosition);
                 for (short j = 0; j < outputsCount; j++) {
                     chainData.readSkip(60);
-                    spent.setValue(false);
                     utxo.put(new CoinReference(transactionHash, j), spent);
                 }
 
@@ -151,10 +150,7 @@ public class Import {
                     chainData.read(hash);
                     short index = chainData.readShort();
                     CoinReference coinReference = new CoinReference(hash, index);
-                    utxo.computeIfPresent(coinReference, (ignored1, ignored2) -> {
-                        spent.setValue(true);
-                        return spent;
-                    });
+                    utxo.remove(coinReference);
                 }
 
                 chainData.readPosition(transactionEnd);
